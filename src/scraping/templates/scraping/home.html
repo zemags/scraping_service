@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% load scraping_extras %}
+
+{% block title %}
+    Jobs
+{% endblock %}
+
+{% block content %}
+    {% for obj in object_list %}
+
+        <div class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-md-1">
+              {% with "scraping/"|addstr:obj.language as language_img_path %}
+                <img src="{% static language_img_path %}" class="card-img" alt="{{ obj.language }}">
+              {% endwith %}
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"><a href="{{ obj.url }}">{{ obj.title }}</a></h5>
+                <p class="card-text">{{ obj.description }}</p>
+                <p>{{ obj.city }} {{ obj.language }}</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    {% endfor %}
+{% endblock %}
