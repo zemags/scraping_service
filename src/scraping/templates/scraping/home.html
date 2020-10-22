@@ -20,12 +20,27 @@
               <div class="card-body">
                 <h5 class="card-title"><a href="{{ obj.url }}">{{ obj.title }}</a></h5>
                 <p class="card-text">{{ obj.description }}</p>
-                <p>{{ obj.city }} {{ obj.language }}</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <p>{{ obj.city.name }} | {{ obj.language.name }}</p>
+                <p class="card-text"><small class="text-muted">{{ obj.timestamp }}</small></p>
               </div>
             </div>
           </div>
         </div>
-
+    {% empty %}
+        <div class="alert alert-warning" role="alert">
+          Nothing to show, sorry.
+        </div>
     {% endfor %}
+    <div class="row">
+        <div class="col-md-6">
+            <form method="GET" action="">
+                 <div class="form-group">
+                    {{ form.as_p }}
+                 </div>
+                 <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </div>
+
+
 {% endblock %}
