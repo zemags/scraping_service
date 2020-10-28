@@ -8,7 +8,6 @@
 
 {% block content %}
     {% for obj in object_list %}
-
         <div class="card mb-3">
           <div class="row no-gutters">
             <div class="col-md-1">
@@ -19,6 +18,7 @@
             <div class="col-md-8">
               <div class="card-body">
                 <h5 class="card-title"><a href="{{ obj.url }}">{{ obj.title }}</a></h5>
+                <p>{{ obj.description }}</p>
                 <p class="card-text">{{ obj.description }}</p>
                 <p>{{ obj.city.name }} | {{ obj.language.name }}</p>
                 <p class="card-text"><small class="text-muted">{{ obj.timestamp }}</small></p>
@@ -41,6 +41,4 @@
             </form>
         </div>
     </div>
-
-
 {% endblock %}
