@@ -43,8 +43,6 @@ async def main(value):
 
 settings = get_settings()
 url_list = get_ursl(settings)
-# city = City.objects.filter(slug='kiev').first()
-# language = Language.objects.filter(slug='python').first()
 
 loop = asyncio.get_event_loop()
 tmp_tasks = [
@@ -74,7 +72,3 @@ for job in jobs:
 
 if errors:
     er = Error(data=errors).save()
-
-# h = codecs.open('work.txt', 'w', 'utf-8')
-# h.write(str(jobs))
-# h.close()
