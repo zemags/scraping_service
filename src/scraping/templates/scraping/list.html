@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!--show own tags-->
+{% load scraping_extras %}
+
+{% block title %}
+    Jobs
+{% endblock %}
+
+{% block content %}
+    {% for obj in object_list %}
+        <div class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-md-1">
+              {% with "scraping/"|addstr:obj.language as language_img_path %}
+                <img src="{% static language_img_path %}" class="card-img" alt="{{ obj.language }}">
+              {% endwith %}
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"><a href="{{ obj.url }}">{{ obj.title }}</a></h5>
+                <p class="card-text">{{ obj.description }}</p>
+                <p>{{ obj.city.name }} | {{ obj.language.name }}</p>
+                <p class="card-text"><small class="text-muted">{{ obj.timestamp }}</small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+    {% empty %}
+        <div class="alert alert-warning" role="alert">
+          Nothing to show, sorry.
+        </div>
+    {% endfor %}
+
+    {% if object_list %}
+        <div class="row">
+            <div class="col">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+
+                      {% if object_list.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?city={{ city }}&language={{ language }}&page=1" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                      {% endif %}
+
+                      {% for page in object_list.paginator.page_range %}
+                        <li class="page-item {% if page == object_list.number %} active {% endif %}">
+                              <a class="page-link" href="?city={{ city }}&language={{ language }}&page={{ page }}" aria-label="Next">{{ page }}</a>
+                        </li>
+                      {% endfor %}
+
+                      {% if object_list.has_next %}
+                        <li class="page-item">
+                          <a class="page-link" href="?city={{ city }}&language={{ language }}&page={{ object_list.next_page_number }}" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      {% endif %}
+                  </ul>
+                </nav>
+
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
