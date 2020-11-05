@@ -53,10 +53,10 @@ if qs.exists():
 qs = Error.objects.filter(timestamp=today)
 if qs.exists():
     error = qs.first()
-    data = error.data
+    data = error.data['errors']
     html = ''
     for er in data:
-        html += '<a href="{url}">{title}</a><br>'.format(url=er['url'], title=er['title'])
+        html += '<a href="{url}">Error: {title}</a><br>'.format(url=er['url'], title=er['title'])
     html_ = html if html else 'No errors'
     msg = EmailMultiAlternatives(
         subject='Errors sender from %s' % today,
@@ -72,7 +72,8 @@ urls_dict = {(i['city'], i['language']): True for i in qs}
 urls_err = ''
 for keys in users_dict.keys():
     if not urls_dict.get(keys):
-        urls_err += 'for {city} and {language} there is no urls<br>'.format(city=keys[0], language=keys[0])
+        if keys[0] and keys[1]:
+            urls_err += 'for {city} and {language} there is no urls<br>'.format(city=keys[0], language=keys[0])
 if urls_err:
     msg = EmailMultiAlternatives(
         subject='Urls error sender from %s' % today,

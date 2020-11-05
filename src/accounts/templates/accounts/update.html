@@ -19,4 +19,16 @@
             </form>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <p>Fill forms below with your language, language and email</p>
+            <form method="POST" action="{% url 'accounts:contact' %}">{% csrf_token %}
+                 <div class="form-group">
+                    {{ contact_form.as_p }}
+                 </div>
+                 <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+        </div>
+    </div>
 {% endblock %}
