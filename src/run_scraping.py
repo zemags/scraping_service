@@ -1,5 +1,6 @@
 import asyncio
 import os, sys
+import datetime
 
 #  without runserver by django we can start particularly to save data to DB
 from django.contrib.auth import get_user_model
@@ -30,8 +31,9 @@ def get_ursl(_settings):
     url_dict = {(q['city_id'], q['language_id']): q['url_data'] for q in qs}
     urls = []
     for pair in _settings:
-        tmp = {'city': pair[0], 'language': pair[1], 'url_data': url_dict[pair]}
-        urls.append(tmp)
+        if url_dict[pair]:
+            tmp = {'city': pair[0], 'language': pair[1], 'url_data': url_dict[pair]}
+            urls.append(tmp)
     return urls
 
 #async variation
@@ -71,4 +73,11 @@ for job in jobs:
         pass
 
 if errors:
-    er = Error(data=errors).save()
+    qs = Error.objects.filter(timestamp=datetime.date.today())
+    if qs.exists():
+        # check if error already exists in db
+        err = qs.first()
+        err.data.update({'errors': errors})
+        err.save()
+    else:
+        er = Error(data=f'errors: {errors}').save()
