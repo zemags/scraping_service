@@ -8,24 +8,31 @@
     Jobs
 {% endblock %}
 
+<!--extend base css with child css-->
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'scraping/css/job_content_style.css' %}" />
+{% endblock %}
+
 {% block content %}
     {% for obj in object_list %}
-        <div class="card mb-3">
-          <div class="row no-gutters">
-            <div class="col-md-1">
-              {% with "scraping/"|addstr:obj.language as language_img_path %}
-                <img src="{% static language_img_path %}" class="card-img" alt="{{ obj.language }}">
-              {% endwith %}
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title"><a href="{{ obj.url }}">{{ obj.title }}</a></h5>
-                <p class="card-text">{{ obj.description }}</p>
-                <p>{{ obj.city.name }} | {{ obj.language.name }}</p>
-                <p class="card-text"><small class="text-muted">{{ obj.timestamp }}</small></p>
+        <div class="d-flex justify-content-center">
+            <div class="card mb-3 w-75">
+              <div class="row no-gutters">
+                <div class="col-md-1">
+                  {% with "scraping/"|addstr:obj.language as language_img_path %}
+                    <img class="language-icon" src="{% static language_img_path %}" alt="{{ obj.language }}">
+                  {% endwith %}
+                </div>
+                <div class="col-md-10">
+                  <div class="card-body card-size">
+                    <h5 class="card-title"><a href="{{ obj.url }}">{{ obj.title }}</a></h5>
+                    <p class="card-text crop-text">{{ obj.description }}</p>
+                    <p>{{ obj.city.name }} | {{ obj.language.name }}</p>
+                    <p class="card-text"><small class="text-muted">{{ obj.timestamp }}</small></p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
         </div>
     {% empty %}
         <div class="alert alert-warning" role="alert">
@@ -35,8 +42,8 @@
 
     {% if object_list %}
         <div class="row">
-            <div class="col">
-                <nav aria-label="Page navigation example">
+            <div class="col d-flex justify-content-center">
+                <nav aria-label="Page navigation">
                   <ul class="pagination">
 
                       {% if object_list.has_previous %}

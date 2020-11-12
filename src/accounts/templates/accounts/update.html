@@ -23,12 +23,23 @@
     <div class="row">
         <div class="col-md-6 mx-auto">
             <p>Fill forms below with your language, language and email</p>
-            <form method="POST" action="{% url 'accounts:contact' %}">{% csrf_token %}
-                 <div class="form-group">
-                    {{ contact_form.as_p }}
-                 </div>
-                 <button type="submit" class="btn btn-primary">Send</button>
-            </form>
+
+            <p>
+              <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapsed" aria-expanded="false" aria-controls="collapse">
+                Show form below
+              </button>
+            </p>
+            <div class="collapse" id="collapseExample">
+              <div class="card card-body">
+                  <form method="POST" action="{% url 'accounts:contact' %}">{% csrf_token %}
+                     <div class="form-group">
+                        {{ contact_form.as_p }}
+                     </div>
+                     <button type="submit" class="btn btn-primary">Send</button>
+                  </form>
+              </div>
+            </div>
+
         </div>
     </div>
 {% endblock %}

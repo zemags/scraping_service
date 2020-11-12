@@ -1,0 +1,6 @@
+.base-icon {
+    /* Selects element having a class of .base_icon  */
+    width: 60px;
+    height: 60px;
+    margin: auto;
+}

@@ -13,7 +13,7 @@ import django
 django.setup()
 #
 
-from scraping.models import Vacancy, Error, URL, Url
+from scraping.models import Vacancy, Error, Url
 from scraping_service.settings import EMAIL_HOST_USER
 
 ADMIN_USER = ''
@@ -53,7 +53,7 @@ if qs.exists():
 qs = Error.objects.filter(timestamp=today)
 if qs.exists():
     error = qs.first()
-    data = error.data['errors']
+    data = error.data.get('errors', [])
     html = ''
     for er in data:
         html += '<a href="{url}">Error: {title}</a><br>'.format(url=er['url'], title=er['title'])
