@@ -7,7 +7,7 @@
 }
 
 .card-size {
-    height: 250px;
+    height: 100px;
 }
 
 .crop-text  {
@@ -17,3 +17,26 @@
     overflow-y: hidden;
 }
 
+/*href colors*/
+.job-href {
+    color: #6600ff !important;
+    text-align: left;
+}
+
+.job-href:visited {
+    color: #00cc66 !important;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.job-href:hover {
+    color: #ff0066 !important;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.job-href:active {
+    color: #ff9900 !important;
+    background-color: transparent;
+    text-decoration: underline;
+}

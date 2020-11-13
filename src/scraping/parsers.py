@@ -32,7 +32,7 @@ def work(url, city=None, language=None):
                     if logo:
                         company = logo['alt']
                     jobs.append({
-                        'title': title.text, 'url': '%s%s' % (domain, href), 'description': content, 'company': company,
+                        'title': ' '.join(title.text.split()), 'url': '%s%s' % (domain, href), 'description': content, 'company': company,
                         'city_id': city, 'language_id': language
                     })
             else:
@@ -63,7 +63,7 @@ def dou(url, city=None, language=None):
                     a = title.find('a', attrs={'class', 'company'})
                     if a:
                         company = a.text
-                    jobs.append({'title': title.text, 'url': href, 'description': content, 'company': company,
+                    jobs.append({'title': ' '.join(title.text.split()), 'url': href, 'description': content, 'company': company,
                                  'city_id': city, 'language_id': language
                     })
             else:
