@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!--show own tags-->
+{% load scraping_extras %}
+
+{% block title %}
+Jobs
+{% endblock %}
+
+<!--extend base css with child css-->
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'scraping/css/job_content_style.css' %}"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center">
+    <div class="card mb-3 w-75">
+        <div class="row no-gutters">
+            <div class="col-md-1">
+                {% with "scraping/"|addstr:object.language as language_img_path %}
+                <img class="language-icon" src="{% static language_img_path %}" alt="{{ object.language }}">
+                {% endwith %}
+            </div>
+            <div class="col-md-10">
+                <div class="card-body">
+                    <h5 class="card-title"><a class="job-href" href="{{ object.url }}">{{ object.title }}</a></h5>
+                    <p class="card-text crop-text">{{ object.description }}</p>
+                    <p>{{ object.city.name }} | {{ object.language.name }}</p>
+                    <p class="card-text"><small class="text-muted">{{ object.timestamp }}</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
