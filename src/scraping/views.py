@@ -1,8 +1,10 @@
+from django.contrib import messages
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView, ListView
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 
-from .forms import FindForm
+from .forms import FindForm, VacancyForm
 from .models import Vacancy
 
 
@@ -84,3 +86,33 @@ class VacancyList(ListView):
             qs = Vacancy.objects.all()
 
         return qs
+
+
+class VacancyCreate(CreateView):
+    model = Vacancy
+    #fields = '__all__'  # pass all fields from db table to html form
+
+    form_class = VacancyForm  # from scraping.forms
+
+    template_name = 'scraping/create.html'
+    success_url = reverse_lazy('home')  #  like redirectafter submit
+
+
+class VacancyUpdate(UpdateView):
+    model = Vacancy
+    #fields = '__all__'  # pass all fields from db table to html form
+
+    form_class = VacancyForm
+
+    template_name = 'scraping/create.html'
+    success_url = reverse_lazy('home')  #  like redirectafter submit
+
+
+class VacancyDelete(DeleteView):
+    model = Vacancy
+    template_name = 'scraping/delete.html'
+    success_url = reverse_lazy('home')  #  like redirectafter submit
+
+    def get(self, request, *args, **kwargs):
+        messages.success(request, 'Vacancy successfully deleted.')
+        return self.post(request, *args, **kwargs)  # without connfirmation

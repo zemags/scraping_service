@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!--show own tags-->
+{% load scraping_extras %}
+
+{% block title %}
+Delete
+{% endblock %}
+
+<!--extend base css with child css-->
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'scraping/css/job_content_style.css' %}"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center">
+    <div class="card mb-3 w-75">
+        <div class="row no-gutters">
+            <div class="col-md-10">
+                <form method="post">{% csrf_token %}
+                    <p>{{ object }}</p>
+                    <input type="submit" value="Delete?">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

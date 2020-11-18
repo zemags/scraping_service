@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from scraping.views import home_view, list_view, v_detail, VacancyDetail, VacancyList
+from scraping.views import home_view, list_view, v_detail, VacancyDetail, VacancyList, VacancyCreate, VacancyUpdate, \
+    VacancyDelete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +26,10 @@ urlpatterns = [
     path('accounts/', include(('accounts.urls', 'accounts'))),
     # path('detail/<int:pk>/', v_detail, name='detail'),
     path('detail/<int:pk>/', VacancyDetail.as_view(), name='detail'),
+
+    path('create/', VacancyCreate.as_view(), name='create'),
+    path('update/<int:pk>/', VacancyUpdate.as_view(), name='update'),
+    path('delete/<int:pk>/', VacancyDelete.as_view(), name='delete'),
 
     path('', home_view, name='home'),
 ]
