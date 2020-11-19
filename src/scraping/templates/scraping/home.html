@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load scraping_extras %}
+{% load crispy_forms_tags %}
 
 {% block title %}
 Jobs
@@ -8,14 +9,21 @@ Jobs
 
 {% block content %}
 <div class="row">
-    <div class="col-md-6 mx-auto"><h2>Find and get vacancys</h2></div>
+    <div class="col-md-6 mx-auto text-center"><h2>Find and get vacancys</h2></div>
 </div>
 <div class="row">
     <div class="col-md-6 mx-auto">
-        <p>Fill form to see available vacancys</p>
+        <p class="text-center">Fill form to see available vacancys</p>
         <form method="GET" action="{% url 'list' %}">
             <div class="form-group">
-                {{ form.as_p }}
+                <div class="row">
+                    <div class="col-6">
+                        {{ form.city|as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.language|as_crispy_field }}
+                    </div>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">Search</button>
         </form>

@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 
 from .forms import FindForm, VacancyForm
@@ -13,6 +14,9 @@ def home_view(request):
     form = FindForm()
     context = {'form': form}
     return render(request, 'scraping/home.html', context)
+
+class VacancyFind(View):
+    model = Vacancy
 
 
 def list_view(request):
@@ -81,7 +85,7 @@ class VacancyList(ListView):
                 filter_dict['city__slug'] = city.lower()
             if language:
                 filter_dict['language__slug'] = language.lower()
-            qs = Vacancy.objects.filter(**filter_dict)
+            qs = Vacancy.objects.filter(**filter_dict).select_related('city', 'language ')  # select_related like sql join for Models ForeignKey
         else:
             qs = Vacancy.objects.all()
 
