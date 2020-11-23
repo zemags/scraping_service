@@ -15,9 +15,6 @@ def home_view(request):
     context = {'form': form}
     return render(request, 'scraping/home.html', context)
 
-class VacancyFind(View):
-    model = Vacancy
-
 
 def list_view(request):
     form = FindForm()
